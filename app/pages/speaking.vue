@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const { t } = useI18n()
+
 type Event = {
   title: string
   date: string
@@ -19,13 +21,17 @@ if (!page.value) {
 }
 
 useSeoMeta({
-  title: page.value?.seo?.title || page.value?.title,
-  ogTitle: page.value?.seo?.title || page.value?.title,
-  description: page.value?.seo?.description || page.value?.description,
-  ogDescription: page.value?.seo?.description || page.value?.description
+  title: t('pages.speaking.title'),
+  ogTitle: t('pages.speaking.title'),
+  description: t('pages.speaking.description'),
+  ogDescription: t('pages.speaking.description')
 })
 
-const { global } = useAppConfig()
+const categoryLabels: Record<string, string> = {
+  'Conference': 'Core Expertise',
+  'Live talk': 'Applied Skills',
+  'Podcast': 'Insights'
+}
 
 const groupedEvents = computed((): Record<Event['category'], Event[]> => {
   const events = page.value?.events || []
@@ -46,83 +52,69 @@ function formatDate(dateString: string): string {
 </script>
 
 <template>
-  <UPage v-if="page">
-    <UPageHero
-      :title="page.title"
-      :description="page.description"
-      :ui="{
-        title: 'mx-0! text-left',
-        description: 'mx-0! text-left',
-        links: 'justify-start'
-      }"
-    >
-      <template #links>
-        <UButton
-          v-if="page.links"
-          :to="`mailto:${global.email}`"
-          v-bind="page.links[0]"
-        />
-      </template>
-    </UPageHero>
-    <UPageSection
-      :ui="{
-        container: 'pt-0!'
-      }"
-    >
+  <div v-if="page" class="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-32">
+    <!-- Header -->
+    <div class="mb-24">
+      <ScrollReveal>
+        <div class="flex items-center gap-4 mb-8">
+          <span class="text-xs font-body uppercase tracking-[0.2em] text-muted">
+            03 / Speaking
+          </span>
+          <div class="h-px w-12 bg-white/10"></div>
+        </div>
+        
+        <h1 class="font-display font-medium text-4xl sm:text-6xl tracking-tighter text-primary uppercase leading-none mb-6">
+          {{ t('pages.speaking.title') }}
+        </h1>
+        
+        <p class="text-sm font-body tracking-widest text-muted uppercase max-w-xl">
+          {{ t('pages.speaking.description') }}
+        </p>
+      </ScrollReveal>
+    </div>
+
+    <!-- Events List -->
+    <div class="flex flex-col gap-24">
       <div
         v-for="(eventsInCategory, category) in groupedEvents"
         :key="category"
-        class="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 mb-16 last:mb-0"
+        class="flex flex-col md:flex-row gap-12 border-t border-white/10 pt-12"
       >
-        <div class="lg:col-span-1 mb-4 lg:mb-0">
-          <h2
-            class="lg:sticky lg:top-16 text-xl font-semibold tracking-tight text-highlighted"
-          >
-            {{ category.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()) }}s
-          </h2>
+        <div class="md:w-1/3 shrink-0">
+          <ScrollReveal :slide-x="30">
+            <h2 class="font-display text-2xl uppercase tracking-tight text-primary">
+              {{ categoryLabels[category] || category }}
+            </h2>
+          </ScrollReveal>
         </div>
 
-        <div class="lg:col-span-2 space-y-8">
-          <div
+        <div class="md:w-2/3 flex flex-col">
+          <ScrollReveal
             v-for="(event, index) in eventsInCategory"
             :key="`${category}-${index}`"
-            class="group relative pl-6 border-l border-default"
+            :delay="index * 100"
           >
-            <NuxtLink
-              v-if="event.url"
-              :to="event.url"
-              class="absolute inset-0"
-            />
-            <div class="mb-1 text-sm font-medium text-muted">
-              <span>{{ event.location }}</span>
-              <span
-                v-if="event.location && event.date"
-                class="mx-1"
-              >·</span>
-              <span v-if="event.date">{{ formatDate(event.date) }}</span>
+            <div class="group relative py-8 border-b border-white/10 last:border-transparent hover:bg-white/[0.02] transition-colors duration-500 px-4 md:px-6 -mx-4 md:-mx-6 cursor-default">
+              
+              <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-2">
+                <h3 class="font-display text-xl md:text-2xl text-primary transition-colors">
+                  {{ event.title }}
+                </h3>
+                <span v-if="event.date" class="text-xs font-body tracking-widest text-muted uppercase shrink-0">
+                  {{ formatDate(event.date) }}
+                </span>
+              </div>
+
+              <div class="flex items-center gap-3">
+                <p class="text-sm font-body tracking-wide text-muted uppercase">
+                  {{ event.location }}
+                </p>
+              </div>
+
             </div>
-
-            <h3 class="text-lg font-semibold text-highlighted">
-              {{ event.title }}
-            </h3>
-
-            <UButton
-              v-if="event.url"
-              target="_blank"
-              :label="event.category === 'Podcast' ? 'Listen' : 'Watch'"
-              variant="link"
-              class="p-0 pt-2 gap-0"
-            >
-              <template #trailing>
-                <UIcon
-                  name="i-lucide-arrow-right"
-                  class="size-4 transition-all opacity-0 group-hover:translate-x-1 group-hover:opacity-100"
-                />
-              </template>
-            </UButton>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
-    </UPageSection>
-  </UPage>
+    </div>
+  </div>
 </template>

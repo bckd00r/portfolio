@@ -3,23 +3,172 @@
 
 @source "../../../content/**/*";
 
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
 @theme static {
-  --font-sans: 'Public Sans', sans-serif;
-  --font-serif: 'Instrument Serif', serif;
+  --font-sans: 'Space Grotesk', sans-serif;
+  --font-display: 'Archivo', sans-serif;
 }
 
+@media (pointer: fine) {
+  html, body, *, a, button {
+    cursor: none !important;
+  }
+}
+
+/* ── Design Tokens ────────────────────────────────────── */
 :root {
-  --ui-container: var(--container-4xl);
+  --ui-container: var(--container-7xl);
+
+  /* Deep Monochrome Palette */
+  --bg-deep: #000000;
+  --bg-surface: #09090b;
+  --bg-elevated: #18181b;
+  
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  
+  --border-subtle: #27272a;
+  --border-strong: #3f3f46;
 
   ::selection {
-    color: #282a30;
-    background-color: #c8c8c8;
+    color: #000000;
+    background-color: #fafafa;
   }
 }
 
 .dark {
-  ::selection {
-    color: #ffffff;
-    background-color: #474747;
+  --ui-bg: var(--bg-deep);
+  --ui-bg-elevated: var(--bg-surface);
+  --ui-bg-accented: var(--bg-elevated);
+  --ui-border: var(--border-subtle);
+  --ui-border-accented: var(--border-strong);
+  
+  --ui-text-highlighted: #ffffff;
+  --ui-text-muted: #a1a1aa;
+  --ui-text-dimmed: #71717a;
+  --ui-text-toned: #d4d4d8;
+  
+  color: var(--text-primary);
+  background-color: var(--bg-deep);
+}
+
+/* ── Typography Utilities ─────────────────────────────── */
+.font-display {
+  font-family: 'Archivo', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.font-body {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── Hide Scrollbar (Global) ──────────────────────────── */
+html,
+body,
+main,
+[data-radix-scroll-area-viewport],
+.overflow-y-auto,
+.overflow-auto {
+  scroll-behavior: smooth;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+main::-webkit-scrollbar,
+[data-radix-scroll-area-viewport]::-webkit-scrollbar,
+.overflow-y-auto::-webkit-scrollbar,
+.overflow-auto::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+*::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+* {
+  scrollbar-width: none !important;
+}
+
+/* ── Minimal Image Hover ──────────────────────────────── */
+.image-hover-zoom {
+  overflow: hidden;
+}
+.image-hover-zoom img {
+  transition: transform 700ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+.image-hover-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* ── Editorial Divider ────────────────────────────────── */
+.editorial-divider {
+  height: 1px;
+  background-color: var(--border-subtle);
+  width: 100%;
+}
+
+/* ── Reduced Motion ───────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Page Transitions ─────────────────────────────────── */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(20px) scale(0.98);
+  filter: blur(4px);
+}
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-20px) scale(0.98);
+  filter: blur(4px);
+}
+
+/* ── Mobile-First Touch Optimizations ────────────────── */
+
+/* Kill 300ms tap delay on all interactive elements */
+a, button, input, select, textarea, [role="button"] {
+  touch-action: manipulation;
+}
+
+/* Prevent accidental pull-to-refresh */
+html {
+  overscroll-behavior-y: contain;
+}
+
+/* Minimum touch target size (44x44px per WCAG / Apple HIG) */
+@media (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Safe area padding for notched devices */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Floor tiny labels at 11px on mobile */
+@media (max-width: 640px) {
+  .text-\[10px\] {
+    font-size: 11px;
   }
 }

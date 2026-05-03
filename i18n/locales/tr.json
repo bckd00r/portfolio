@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "projects": "Projeler",
+    "blog": "Blog",
+    "skills": "Yetenekler",
+    "about": "Hakkımda"
+  },
+  "hero": {
+    "title": "Mustafa Barış Göktepe",
+    "subtitle": "Yazılım Geliştirici",
+    "description": "Düşük seviye çözümler ve modern web deneyimleri üreten, pratik altyapıya sahip bir yazılım geliştirici. DirectX araçlarından web platformlarına kadar geniş bir yelpazede çalışıyorum.",
+    "viewProjects": "Projeleri Gör",
+    "available": "Projelere açık",
+    "notAvailable": "Müsait değil"
+  },
+  "about": {
+    "title": "Hakkımda",
+    "description": "Meslek lisesi elektrik-elektronik (pano) bölümü çıkışlı, yazılım alanında uygulamalı tecrübeyle kendini yetiştirmiş bir geliştiriciyim. İngiltere'de bir yıl boyunca profesyonel İngilizce eğitimi aldım ve TecSense adlı yazılım şirketinde Senior Developer rolünde bir yıllık sözleşmeli süreci başarıyla tamamladım. Yazılımın ötesinde spora büyük bir tutkum var; vücut geliştirme ve koşuya odaklanıyor, amatör maratonlara katılıyorum. Antalya başta olmak üzere turizm bölgelerinde ticarete ve insanlarla iletişime verdiğim önem, problem çözme vizyonumu genişletmemi sağladı. Pratikten gelen altyapım, teknik yaklaşımımı besliyor: disiplinli, azimli ve yeniliklere açık.",
+    "highlights": {
+      "england": "İngiltere · TecSense",
+      "sports": "Vücut Geliştirme & Maratonlar",
+      "travel": "Antalya & Turizm"
+    }
+  },
+  "experience": {
+    "title": "Deneyim"
+  },
+  "skills": {
+    "title": "Yetenekler & Teknolojiler",
+    "countLabel": "yetenek"
+  },
+  "gallery": {
+    "title": "Galeri",
+    "description": "Çalışmalarımdan ve projelerimden görseller."
+  },
+  "blog": {
+    "title": "Son Yazılar",
+    "description": "Mühendislik, teknoloji ve önemli şeyler inşa etmek üzerine düşünceler."
+  },
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "description": "Çalışmalarım, sürecim ve uygunluğum hakkında sık sorulan sorular.",
+    "categories": {
+      "services": "Hizmetler",
+      "technical": "Teknik",
+      "availability": "Uygunluk"
+    },
+    "questions": {
+      "q1": "Ne tür projeler üstleniyorsunuz?",
+      "a1": "Üç alanda çalışıyorum — sistem düzeyinde mühendislik (C++, DirectX, oyun motoru iç yapıları), web geliştirme (markalar ve influencerlar için Nuxt.js/Vue.js ile modern platformlar) ve iş teknolojisi danışmanlığı. İster özel bir renderer, ister prodüksiyon web platformu, ister stratejik teknik rehberlik olsun, yardımcı olabilirim.",
+      "q2": "Yeni bir projeye nasıl yaklaşıyorsunuz?",
+      "a2": "Problem alanını ve iş bağlamını derinlemesine anlayarak başlıyorum. Ardından teknik mükemmellik ile pratik teslimat arasında denge kuran bir çözüm tasarlıyorum. Net iletişime, iteratif ilerlemeye ve beklentileri aşan kalite sunmaya inanıyorum.",
+      "q3": "Uluslararası müşterilerle çalışıyor musunuz?",
+      "a3": "Evet. Farklı pazarlardaki müşteriler ve şirketlerle çalıştım. Uzaktan işbirliği, farklı zaman dilimlerinde toplantılar ve farklı iş kültürlerine uyum sağlama konusunda rahatım.",
+      "q4": "En güçlü teknik alanınız nedir?",
+      "a4": "En derin uzmanlığım C++ sistem programlama — DirectX rendering, bellek yönetimi, tersine mühendislik ve karmaşık yazılımlarla düşük seviyede etkileşim kuran araçlar geliştirme. Ancak prodüksiyon web uygulamaları teslim etmekte de aynı derecede yetenekliyim.",
+      "q5": "Özel web platformları yapabilir misiniz?",
+      "a5": "Kesinlikle. Aphernix ve Smyra dahil olmak üzere birçok influencer için web platformları oluşturdum, tasarımdan dağıtıma kadar her şeyi yönettim. Ağırlıklı olarak modern araçlarla Nuxt.js kullanıyorum.",
+      "q6": "Freelance çalışmaya uygun musunuz?",
+      "a6": "Evet, şu anda yeni projelere açığım. İster odaklanmış bir teknik çalışma ister devam eden danışmanlık olsun, iletişime geçmekten çekinmeyin ve ihtiyaçlarınızı tartışalım.",
+      "q7": "Sizinle nasıl iletişime geçebilirim?",
+      "a7": "Bana ulaşmanın en iyi yolu e-posta ile. Ayrıca altbilgideki bağlantılar aracılığıyla GitHub ve Discord'da da beni bulabilirsiniz."
+    }
+  },
+  "pages": {
+    "projects": {
+      "title": "Projeler",
+      "description": "Sistem mühendisliği, web platformları, tersine mühendislik ve iş danışmanlığını kapsayan seçilmiş çalışmalar."
+    },
+    "blog": {
+      "title": "Son Yazılar",
+      "description": "Tasarım, geliştirme ve teknoloji sektörü hakkında son düşüncelerim."
+    },
+    "about": {
+      "title": "Hakkımda",
+      "description": "Yazılım Geliştirici"
+    },
+    "speaking": {
+      "title": "Yetenekler & Deneyim",
+      "description": "Temel uzmanlık alanları ve profesyonel deneyim."
+    }
+  },
+  "footer": {
+    "credits": "Barış Göktepe tarafından tasarlandı"
+  },
+  "common": {
+    "backToBlog": "Blog",
+    "copyLink": "Bağlantıyı kopyala",
+    "minRead": "DK OKUMA",
+    "language": "Dil"
+  }
+}

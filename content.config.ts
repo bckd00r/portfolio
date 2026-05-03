@@ -29,9 +29,10 @@ const createAuthorSchema = () => z.object({
   avatar: createImageSchema().optional()
 })
 
-const createTestimonialSchema = () => z.object({
-  quote: z.string(),
-  author: createAuthorSchema()
+const createSkillCategorySchema = () => z.object({
+  title: z.string(),
+  icon: z.string(),
+  items: z.array(z.string())
 })
 
 export default defineContentConfig({
@@ -42,7 +43,7 @@ export default defineContentConfig({
       schema: z.object({
         hero: z.object({
           links: z.array(createButtonSchema()),
-          images: z.array(createImageSchema())
+          images: z.array(createImageSchema()).optional()
         }),
         about: createBaseSchema(),
         experience: createBaseSchema().extend({
@@ -57,7 +58,10 @@ export default defineContentConfig({
             })
           }))
         }),
-        testimonials: z.array(createTestimonialSchema()),
+        skills: z.object({
+          title: z.string(),
+          categories: z.array(createSkillCategorySchema())
+        }).optional(),
         blog: createBaseSchema(),
         faq: createBaseSchema().extend({
           categories: z.array(

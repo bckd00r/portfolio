@@ -1,64 +1,113 @@
 <script setup lang="ts">
 import type { IndexCollectionItem } from '@nuxt/content'
 
-const props = defineProps<{
+const { t } = useI18n()
+
+defineProps<{
   page: IndexCollectionItem
 }>()
 
-const items = computed(() => {
-  return props.page.faq?.categories.map((faq) => {
-    return {
-      label: faq.title,
-      key: faq.title.toLowerCase(),
-      questions: faq.questions
-    }
-  })
+const activeCategory = ref(0)
+const openIndex = ref(-1)
+
+watch(activeCategory, () => {
+  openIndex.value = -1 // reset open state when category changes
 })
 
-const ui = {
-  root: 'flex items-center gap-4 w-full',
-  list: 'relative flex bg-transparent dark:bg-transparent gap-2 px-0',
-  indicator: 'absolute top-[4px] duration-200 ease-out focus:outline-none rounded-lg bg-elevated/60',
-  trigger: 'px-3 py-2 rounded-lg hover:bg-muted/50 data-[state=active]:text-highlighted data-[state=inactive]:text-muted',
-  label: 'truncate'
+const categoryKeys = ['services', 'technical', 'availability']
+const questionMap: Record<string, string[]> = {
+  services: ['q1', 'q2', 'q3'],
+  technical: ['q4', 'q5'],
+  availability: ['q6', 'q7']
 }
+
+const categories = computed(() => {
+  return categoryKeys.map(key => ({
+    title: t(`faq.categories.${key}`),
+    questions: questionMap[key].map(qk => ({
+      label: t(`faq.questions.${qk}`),
+      content: t(`faq.questions.a${qk.slice(1)}`)
+    }))
+  }))
+})
 </script>
 
 <template>
-  <UPageSection
-    :title="page.faq.title"
-    :description="page.faq.description"
-    :ui="{
-      container: 'px-0 pt-0! gap-4 sm:gap-4',
-      title: 'text-left text-xl sm:text-xl lg:text-2xl font-medium',
-      description: 'text-left mt-2 text-sm sm:text-md lg:text-sm text-muted'
-    }"
-  >
-    <UTabs
-      :items
-      orientation="horizontal"
-      :ui
-    >
-      <template #content="{ item }">
-        <UAccordion
-          trailing-icon="lucide:plus"
-          :items="item.questions"
-          :unmount-on-hide="false"
-          :ui="{
-            item: 'border-none',
-            trigger: 'mb-2 border-0 group px-4 transform-gpu rounded-lg bg-elevated/60 will-change-transform hover:bg-muted/50 text-base',
-            trailingIcon: 'group-data-[state=closed]:rotate-0 group-data-[state=open]:rotate-135 text-base text-muted'
-          }"
-        >
-          <template #body="{ item: _item }">
-            <MDC
-              :value="_item.content"
-              unwrap="p"
-              class="px-4"
-            />
-          </template>
-        </UAccordion>
-      </template>
-    </UTabs>
-  </UPageSection>
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-24">
+    
+    <div class="editorial-divider mb-12"></div>
+    
+    <div class="flex flex-col md:flex-row gap-12">
+      <!-- Title & Categories -->
+      <div class="md:w-1/3">
+        <ScrollReveal>
+          <span class="text-[10px] font-body uppercase tracking-[0.2em] text-muted mb-4 block">
+            07 / FAQ
+          </span>
+          <h2 class="font-display font-medium text-4xl sm:text-5xl tracking-tighter text-primary uppercase mb-8">
+            {{ t('faq.title') }}
+          </h2>
+          <p class="text-sm font-body text-muted mb-12">
+            {{ t('faq.description') }}
+          </p>
+
+          <!-- Minimal Category Tabs -->
+          <div class="flex flex-col gap-4 border-l border-white/10 pl-6">
+            <button
+              v-for="(cat, i) in categories"
+              :key="cat.title"
+              class="text-left font-body uppercase tracking-widest text-xs transition-colors duration-300 py-3 min-h-[44px] flex items-center"
+              :class="activeCategory === i ? 'text-primary' : 'text-muted hover:text-primary/70'"
+              @click="activeCategory = i"
+            >
+              {{ cat.title }}
+            </button>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      <!-- Accordion Questions -->
+      <div class="md:w-2/3">
+        <div class="flex flex-col">
+          <div
+            v-for="(item, index) in categories[activeCategory]?.questions || []"
+            :key="item.label"
+            class="group transition-colors duration-300 border-b border-white/10 last:border-transparent"
+          >
+            <button
+              class="w-full text-left py-6 flex items-center justify-between cursor-pointer focus:outline-none"
+              @click="openIndex = openIndex === index ? -1 : index"
+            >
+              <h3 
+                class="font-display text-lg md:text-xl transition-colors duration-300 pr-8"
+                :class="openIndex === index ? 'text-primary' : 'text-muted group-hover:text-primary'"
+              >
+                {{ item.label }}
+              </h3>
+              <span
+                class="transition-transform duration-300 shrink-0 text-muted"
+                :class="openIndex === index ? 'rotate-45' : ''"
+              >
+                <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4v16m8-8H4" />
+                </svg>
+              </span>
+            </button>
+            <div
+              class="overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)]"
+              :style="{
+                maxHeight: openIndex === index ? '500px' : '0px',
+                opacity: openIndex === index ? 1 : 0
+              }"
+            >
+              <div class="pb-8 text-sm md:text-base font-body text-muted/80 leading-relaxed max-w-2xl">
+                {{ item.content }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
 </template>

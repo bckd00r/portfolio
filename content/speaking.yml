@@ -1,48 +1,42 @@
-title: Talks & Workshops
-description: Explore talks and workshops I've given on UX design, front-end development, and building better digital products.
+title: Skills & Expertise
+description: A deep dive into my technical and professional capabilities across systems engineering, web development, reverse engineering, and business strategy.
 links:
-  - label: Invite me to speak
+  - label: Contact me
     size: md
 events:
   - category: Conference
-    title: "Bridging the Gap: Design Systems for Designer-Developer Collaboration"
-    date: "2024-10-26"
-    location: "VueConf US, Miami, FL"
-    url: "#"
+    title: "DirectX 11 Pipeline Architecture & Custom Overlay Systems"
+    date: "2025-01-15"
+    location: "Systems Engineering"
   - category: Conference
-    title: "Intuitive Interfaces: Applying UX Principles in Nuxt.js Applications"
-    date: "2024-06-15"
-    location: "Nuxt Nation, Online"
-    url: "#"
+    title: "Thread-Safe Resource Management in Real-Time Rendering"
+    date: "2024-10-20"
+    location: "Graphics Programming"
   - category: Conference
-    title: "Accessibility First: Building Inclusive Web Apps"
-    date: "2023-11-08"
-    location: "Boston Web Performance Meetup, Boston, MA"
+    title: "Binary Analysis & Function Recovery with IDA Pro"
+    date: "2024-08-12"
+    location: "Reverse Engineering"
   - category: Live talk
-    title: "Mastering Component Design in Figma & Vue"
-    date: "2024-08-20"
-    location: "Design & Dev Boston Meetup, Boston, MA"
-    url: "#"
+    title: "Building Production Web Platforms with Nuxt.js"
+    date: "2024-06-05"
+    location: "Web Development"
   - category: Live talk
-    title: "From Wireframe to Web: A Practical Front-End Workflow"
-    date: "2024-03-05"
-    location: "Internal Workshop @ PreviousCompany Inc."
+    title: "Influencer Platform Architecture — Aphernix & Smyra Case Studies"
+    date: "2024-03-18"
+    location: "Web Development"
   - category: Live talk
-    title: "The Power of User Research in Product Development"
-    date: "2023-09-12"
-    location: "Boston University Guest Lecture, Boston, MA"
+    title: "Bridging Technical Teams & Business Stakeholders"
+    date: "2024-01-10"
+    location: "Business Strategy"
   - category: Podcast
-    title: "Designing for Developers: A UX Perspective"
-    date: "2024-07-18"
-    location: "Syntax.fm (Guest)"
-    url: "#"
+    title: "From Assembly to Boardroom — A Full-Stack Perspective"
+    date: "2025-02-14"
+    location: "Career & Philosophy"
   - category: Podcast
-    title: "The Future of Front-End Frameworks & Design Tooling"
-    date: "2024-01-30"
-    location: "Design Details Podcast (Guest)"
-    url: "#"
+    title: "The Art of Reverse Engineering Complex Systems"
+    date: "2024-09-22"
+    location: "Technical Deep Dive"
   - category: Podcast
-    title: "Building a Career in UX/UI & Development"
-    date: "2023-05-22"
-    location: "TechForward Boston Podcast"
-    url: "#"
+    title: "Strategic Decision Making in Technology Companies"
+    date: "2024-05-30"
+    location: "Business & Leadership"

@@ -1,0 +1,93 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "blog": "Blog",
+    "skills": "Skills",
+    "about": "About"
+  },
+  "hero": {
+    "title": "Mustafa Barış Göktepe",
+    "subtitle": "Software Developer",
+    "description": "Self-taught developer crafting low-level solutions & modern web experiences. From DirectX renderers to influencer platforms — I build what others can't.",
+    "viewProjects": "View Projects",
+    "available": "Available for projects",
+    "notAvailable": "Not available"
+  },
+  "about": {
+    "title": "About Me",
+    "description": "I'm a self-taught software developer who originally graduated from a vocational high school with a specialization in electrical-electronics (panel branch). I spent a year in England receiving professional English education and later worked as a Senior Developer at TecSense, where I successfully managed a year-long contract delivering technical solutions. Beyond coding, I'm passionate about sports — focusing on bodybuilding, running, and competing in amateur marathons. Spending time in tourism hubs like Antalya has helped me embrace commerce and people, broadening my worldview through genuine connection and communication. My technical journey is fueled by a hands-on approach: disciplined, resilient, and endlessly curious.",
+    "highlights": {
+      "england": "England · TecSense",
+      "sports": "Bodybuilding & Marathons",
+      "travel": "Antalya & Tourism"
+    }
+  },
+  "experience": {
+    "title": "Expertise"
+  },
+  "skills": {
+    "title": "Skills & Technologies",
+    "countLabel": "skills"
+  },
+  "gallery": {
+    "title": "Gallery",
+    "description": "Visuals from my work and projects."
+  },
+  "blog": {
+    "title": "Latest Articles",
+    "description": "Thoughts on engineering, technology, and building things that matter."
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "description": "Common questions about my work, process, and availability.",
+    "categories": {
+      "services": "Services",
+      "technical": "Technical",
+      "availability": "Availability"
+    },
+    "questions": {
+      "q1": "What kind of projects do you take on?",
+      "a1": "I work across three domains — systems-level engineering (C++, DirectX, game engine internals), web development (modern platforms with Nuxt.js/Vue.js for brands and influencers), and business technology consulting. Whether you need a custom renderer, a production web platform, or strategic technical guidance, I can help.",
+      "q2": "How do you approach a new project?",
+      "a2": "I start by deeply understanding the problem space and business context. Then I architect a solution that balances technical excellence with practical delivery. I believe in clear communication, iterative progress, and delivering quality that exceeds expectations.",
+      "q3": "Do you work with international clients?",
+      "a3": "Yes. I've worked with clients and companies across different markets. I'm comfortable with remote collaboration, meetings across time zones, and adapting to different business cultures.",
+      "q4": "What's your strongest technical area?",
+      "a4": "My deepest expertise is in C++ systems programming — DirectX rendering, memory management, reverse engineering, and building tools that interact with complex software at a low level. But I'm equally capable of shipping production web applications.",
+      "q5": "Can you build custom web platforms?",
+      "a5": "Absolutely. I've built web platforms for multiple influencers including Aphernix and Smyra, handling everything from design to deployment. I primarily use Nuxt.js with modern tooling.",
+      "q6": "Are you available for freelance work?",
+      "a6": "Yes, I'm currently open to new projects. Whether it's a focused technical engagement or ongoing consulting, feel free to reach out and we can discuss your needs.",
+      "q7": "How can I contact you?",
+      "a7": "The best way to reach me is via email. You can also find me on GitHub and Discord through the links in the footer."
+    }
+  },
+  "pages": {
+    "projects": {
+      "title": "Projects",
+      "description": "A selection of work spanning systems engineering, web platforms, reverse engineering, and business consulting."
+    },
+    "blog": {
+      "title": "Latest Articles",
+      "description": "Some of my recent thoughts on design, development, and the tech industry."
+    },
+    "about": {
+      "title": "About",
+      "description": "Software Developer"
+    },
+    "speaking": {
+      "title": "Skills & Experience",
+      "description": "Core areas of expertise and professional experience."
+    }
+  },
+  "footer": {
+    "credits": "Crafted by Barış Göktepe"
+  },
+  "common": {
+    "backToBlog": "Blog",
+    "copyLink": "Copy link",
+    "minRead": "MIN READ",
+    "language": "Language"
+  }
+}

@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import type { IndexCollectionItem } from '@nuxt/content'
-
 const { t } = useI18n()
-
-defineProps<{
-  page: IndexCollectionItem
-}>()
 </script>
 
 <template>

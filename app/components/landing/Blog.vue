@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import type { IndexCollectionItem } from '@nuxt/content'
+const { t, locale } = useI18n()
 
-const { t } = useI18n()
-
-defineProps<{
-  page: IndexCollectionItem
-}>()
-
-const { data: posts } = await useAsyncData('index-blogs', () =>
-  queryCollection('blog').order('date', 'DESC').limit(3).all()
-)
+// Fetch blog posts from API instead of @nuxt/content
+const { data: posts } = await useFetch('/api/blog')
 
 const formatDate = (dateString: string) => {
+  const loc = locale.value === 'tr' ? 'tr-TR' : 'en-US'
   const date = new Date(dateString)
-  return new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(date)
+  return new Intl.DateTimeFormat(loc, { year: 'numeric', month: 'long', day: 'numeric' }).format(date)
 }
 </script>
 
@@ -45,12 +39,12 @@ const formatDate = (dateString: string) => {
 
     <div class="flex flex-col">
       <ScrollReveal 
-        v-for="(post, index) in posts"
-        :key="index"
+        v-for="(post, index) in posts.slice(0, 3)"
+        :key="post.id || index"
         :delay="300 + (index * 100)"
       >
         <NuxtLink
-          :to="post.path"
+          :to="`/blog/${post.slug}`"
           class="group block border-t border-white/10 py-8 md:py-12 hover:bg-white/[0.02] transition-colors"
         >
           <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 px-4 md:px-8">
@@ -59,13 +53,13 @@ const formatDate = (dateString: string) => {
                 {{ formatDate(post.date) }}
               </span>
               <h3 class="font-display text-2xl md:text-3xl text-primary group-hover:text-white transition-colors duration-300">
-                {{ post.title }}
+                {{ locale === 'tr' && post.titleTr ? post.titleTr : post.titleEn }}
               </h3>
             </div>
             
             <div class="md:w-1/3">
               <p class="text-sm font-body text-muted line-clamp-2 leading-relaxed">
-                {{ post.description }}
+                {{ locale === 'tr' && post.descriptionTr ? post.descriptionTr : post.descriptionEn }}
               </p>
             </div>
             

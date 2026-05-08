@@ -50,7 +50,7 @@ onUnmounted(() => {
     <template v-if="isDesktop">
       <!-- Inner dot: instant tracking, always sharp -->
       <div
-        class="fixed top-0 left-0 pointer-events-none z-[10001] rounded-full mix-blend-difference"
+        class="fixed top-0 left-0 pointer-events-none z-[2147483647] rounded-full mix-blend-difference"
         :class="cursorText ? 'w-0 h-0 opacity-0' : 'w-[5px] h-[5px] bg-white opacity-100'"
         :style="{
           transform: `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`,
@@ -60,7 +60,7 @@ onUnmounted(() => {
 
       <!-- Outer ring: lerp-trailing, expands on hover -->
       <div
-        class="fixed top-0 left-0 pointer-events-none z-[10000] rounded-full flex items-center justify-center mix-blend-difference"
+        class="fixed top-0 left-0 pointer-events-none z-[2147483646] rounded-full flex items-center justify-center mix-blend-difference"
         :class="[
           cursorText
             ? 'w-24 h-24 bg-white'

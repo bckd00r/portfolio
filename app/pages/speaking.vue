@@ -1,24 +1,8 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const { loggedIn } = useUserSession()
 
-type Event = {
-  title: string
-  date: string
-  location: string
-  url?: string
-  category: 'Conference' | 'Live talk' | 'Podcast'
-}
-
-const { data: page } = await useAsyncData('speaking', () => {
-  return queryCollection('speaking').first()
-})
-if (!page.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: 'Page not found',
-    fatal: true
-  })
-}
+const { data: events, refresh } = await useFetch('/api/speaking')
 
 useSeoMeta({
   title: t('pages.speaking.title'),
@@ -33,26 +17,48 @@ const categoryLabels: Record<string, string> = {
   'Podcast': 'Insights'
 }
 
-const groupedEvents = computed((): Record<Event['category'], Event[]> => {
-  const events = page.value?.events || []
-  const grouped: Record<Event['category'], Event[]> = {
+type SpeakingEvent = {
+  id: number
+  category: string
+  titleEn: string
+  titleTr: string
+  date: string
+  locationEn: string
+  locationTr: string
+  url: string
+}
+
+const groupedEvents = computed(() => {
+  const items = (events.value || []) as SpeakingEvent[]
+  const grouped: Record<string, SpeakingEvent[]> = {
     'Conference': [],
     'Live talk': [],
     'Podcast': []
   }
-  for (const event of events) {
+  for (const event of items) {
     if (grouped[event.category]) grouped[event.category].push(event)
+    else grouped[event.category] = [event]
   }
   return grouped
 })
 
 function formatDate(dateString: string): string {
-  return new Date(dateString).toLocaleDateString('en-US', { year: 'numeric', month: 'long' })
+  const loc = locale.value === 'tr' ? 'tr-TR' : 'en-US'
+  return new Date(dateString).toLocaleDateString(loc, { year: 'numeric', month: 'long' })
+}
+
+const deleteEvent = async (id: number) => {
+  if (confirm('Emin misiniz?')) {
+    await $fetch(`/api/admin/speaking/${id}`, { method: 'DELETE' })
+    refresh()
+  }
 }
 </script>
 
 <template>
-  <div v-if="page" class="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-32">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-20 sm:py-32 relative">
+    <AdminAddButton v-if="loggedIn" class="absolute top-10 right-4 sm:right-6" @click="navigateTo('/admin/speaking/new')" />
+    
     <!-- Header -->
     <div class="mb-24">
       <ScrollReveal>
@@ -91,14 +97,19 @@ function formatDate(dateString: string): string {
         <div class="md:w-2/3 flex flex-col">
           <ScrollReveal
             v-for="(event, index) in eventsInCategory"
-            :key="`${category}-${index}`"
+            :key="event.id"
             :delay="index * 100"
           >
             <div class="group relative py-8 border-b border-white/10 last:border-transparent hover:bg-white/[0.02] transition-colors duration-500 px-4 md:px-6 -mx-4 md:-mx-6 cursor-default">
               
-              <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-2">
+              <div v-if="loggedIn" class="absolute top-2 right-4 flex items-center gap-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity">
+                <AdminEditButton @click="navigateTo(`/admin/speaking/${event.id}`)" />
+                <AdminDeleteButton @click="deleteEvent(event.id)" />
+              </div>
+
+              <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 mb-2 mt-2">
                 <h3 class="font-display text-xl md:text-2xl text-primary transition-colors">
-                  {{ event.title }}
+                  {{ locale === 'tr' && event.titleTr ? event.titleTr : event.titleEn }}
                 </h3>
                 <span v-if="event.date" class="text-xs font-body tracking-widest text-muted uppercase shrink-0">
                   {{ formatDate(event.date) }}
@@ -107,7 +118,7 @@ function formatDate(dateString: string): string {
 
               <div class="flex items-center gap-3">
                 <p class="text-sm font-body tracking-wide text-muted uppercase">
-                  {{ event.location }}
+                  {{ locale === 'tr' && event.locationTr ? event.locationTr : event.locationEn }}
                 </p>
               </div>
 

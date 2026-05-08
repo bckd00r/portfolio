@@ -25,3 +25,16 @@ logs
 
 # VSC
 .history
+
+# Anthropic / Claude
+.agents/
+.claude/
+
+# Uploads & Data
+public/uploads/
+data/
+
+# Temporary local files not to be tracked
+*.pdf
+cv_extracted.txt
+ui_ux_output*.md

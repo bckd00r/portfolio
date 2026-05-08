@@ -1,22 +1,18 @@
 <script setup lang="ts">
 const { t } = useI18n()
 
-const { data: page } = await useAsyncData('index', () => {
-  return queryCollection('index').first()
-})
-if (!page.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: 'Page not found',
-    fatal: true
-  })
-}
+// Fetch all data from API instead of @nuxt/content
+const { data: hero } = await useFetch('/api/hero')
+const { data: aboutData } = await useFetch('/api/about')
+const { data: experienceData } = await useFetch('/api/experience')
+const { data: skillsData } = await useFetch('/api/skills')
+const { data: faqData } = await useFetch('/api/faq')
 
 useSeoMeta({
-  title: page.value?.seo.title || page.value?.title,
-  ogTitle: page.value?.seo.title || page.value?.title,
-  description: page.value?.seo.description || page.value?.description,
-  ogDescription: page.value?.seo.description || page.value?.description
+  title: t('hero.title'),
+  ogTitle: t('hero.title'),
+  description: hero.value?.descriptionEn || '',
+  ogDescription: hero.value?.descriptionEn || ''
 })
 
 const activeSection = ref(0)
@@ -136,13 +132,13 @@ const sectionLabels = computed(() => [
           i === 5 ? 'max-w-7xl px-4 sm:px-6' : 'max-w-5xl px-4 sm:px-8'
         ]"
       >
-        <LandingHero v-if="i === 1" :page />
-        <LandingAbout v-else-if="i === 2" :page />
-        <LandingWorkExperience v-else-if="i === 3" :page />
-        <LandingSkills v-else-if="i === 4" :page />
-        <LandingGallery v-else-if="i === 5" :page />
-        <LandingBlog v-else-if="i === 6" :page />
-        <LandingFAQ v-else-if="i === 7" :page />
+        <LandingHero v-if="i === 1" :hero="hero" />
+        <LandingAbout v-else-if="i === 2" :about="aboutData" />
+        <LandingWorkExperience v-else-if="i === 3" :items="experienceData" />
+        <LandingSkills v-else-if="i === 4" :categories="skillsData" />
+        <LandingGallery v-else-if="i === 5" />
+        <LandingBlog v-else-if="i === 6" />
+        <LandingFAQ v-else-if="i === 7" :categories="faqData" />
       </div>
     </div>
   </div>

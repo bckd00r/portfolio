@@ -4,11 +4,12 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxt/image',
     '@nuxt/ui',
-    '@nuxt/content',
     '@vueuse/nuxt',
     'nuxt-og-image',
     'motion-v/nuxt',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    'nuxt-auth-utils'
+    // '@nuxt/content' — removed: migrated to DB-based API
   ],
 
   devtools: {
@@ -18,6 +19,24 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
 
   compatibilityDate: '2024-11-01',
+
+  vite: {
+    optimizeDeps: {
+      include: [
+        '@tiptap/vue-3',
+        '@tiptap/starter-kit',
+        '@tiptap/extension-link',
+        '@tiptap/extension-image',
+        '@tiptap/extension-placeholder',
+      ]
+    }
+  },
+  runtimeConfig: {
+    adminGithubUsername: '',
+    session: {
+      maxAge: 60 * 60 * 24 * 7
+    }
+  },
 
   i18n: {
     locales: [

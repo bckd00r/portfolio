@@ -54,12 +54,12 @@
 }
 
 /* ── Typography Utilities ─────────────────────────────── */
-.font-display {
+@utility font-display {
   font-family: 'Archivo', sans-serif;
   letter-spacing: -0.02em;
 }
 
-.font-body {
+@utility font-body {
   font-family: 'Space Grotesk', sans-serif;
 }
 
@@ -69,6 +69,57 @@ body,
 main,
 [data-radix-scroll-area-viewport],
 .overflow-y-auto,
+.overflow-x-auto {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* ── Rich Text / Typography (Used by TipTap and Blog Pages) ─────────────────────────────── */
+.rich-text {
+  @apply text-base md:text-lg font-body text-white/80 leading-relaxed;
+}
+.rich-text h2 {
+  @apply font-display text-3xl font-medium uppercase tracking-tight text-primary mt-12 mb-6;
+}
+.rich-text h3 {
+  @apply font-display text-2xl font-medium uppercase tracking-tight text-primary mt-10 mb-4;
+}
+.rich-text a {
+  @apply text-primary underline underline-offset-4 decoration-white/30 hover:decoration-white;
+}
+.rich-text blockquote {
+  @apply border-l-2 border-primary/50 bg-white/5 py-3 px-6 font-display text-xl text-primary my-6;
+}
+.rich-text pre {
+  @apply bg-white/5 border border-white/10 rounded-lg p-4 my-6 overflow-x-auto text-sm font-mono;
+}
+.rich-text code {
+  @apply bg-white/10 text-primary px-1.5 py-0.5 rounded text-xs font-mono;
+}
+.rich-text pre code {
+  @apply bg-transparent p-0 text-sm;
+}
+.rich-text img {
+  @apply max-w-full rounded-lg my-8 grayscale opacity-90;
+}
+.rich-text ul {
+  @apply list-disc pl-6 my-6 space-y-2;
+}
+.rich-text ol {
+  @apply list-decimal pl-6 my-6 space-y-2;
+}
+.rich-text hr {
+  @apply border-white/10 my-10;
+}
+.rich-text p {
+  @apply mb-6;
+}
 .overflow-auto {
   scroll-behavior: smooth;
   scrollbar-width: none !important;

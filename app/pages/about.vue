@@ -1,16 +1,8 @@
 <script setup lang="ts">
-const { t } = useI18n()
+const { t, locale } = useI18n()
+const { loggedIn } = useUserSession()
 
-const { data: page } = await useAsyncData('about', () => {
-  return queryCollection('about').first()
-})
-if (!page.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: 'Page not found',
-    fatal: true
-  })
-}
+const { data: aboutData } = await useFetch('/api/about')
 
 const { global } = useAppConfig()
 
@@ -23,7 +15,9 @@ useSeoMeta({
 </script>
 
 <template>
-  <div v-if="page" class="max-w-4xl mx-auto px-4 sm:px-6 py-20 sm:py-32">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-20 sm:py-32 relative">
+    <AdminEditButton v-if="loggedIn" class="absolute top-10 right-4 sm:right-6" @click="navigateTo('/admin/about')" />
+    
     <!-- Header -->
     <div class="mb-20">
       <ScrollReveal>
@@ -51,7 +45,7 @@ useSeoMeta({
           <div class="aspect-[3/4] overflow-hidden relative group max-w-[240px]">
             <NuxtImg
               class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out"
-              :src="global.picture?.dark!"
+              :src="aboutData?.profileImage || global.picture?.dark!"
               :alt="global.picture?.alt!"
               sizes="sm:100vw md:50vw lg:300px"
             />
@@ -67,12 +61,9 @@ useSeoMeta({
                       prose-p:font-body prose-p:text-muted/90 prose-p:leading-relaxed prose-p:text-sm sm:prose-p:text-base prose-p:mb-6
                       prose-headings:font-display prose-headings:font-medium prose-headings:uppercase prose-headings:tracking-tight prose-headings:text-primary
                       prose-a:text-primary prose-a:underline prose-a:underline-offset-4 prose-a:decoration-white/30 hover:prose-a:decoration-white
-                      prose-strong:text-primary prose-strong:font-medium">
-            <MDC
-              :value="page.content"
-              unwrap="p"
-            />
-          </div>
+                      prose-strong:text-primary prose-strong:font-medium"
+            v-html="locale === 'tr' && aboutData?.contentTr ? aboutData.contentTr : (aboutData?.contentEn || '')"
+          />
         </ScrollReveal>
       </div>
     </div>

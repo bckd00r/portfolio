@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import type { IndexCollectionItem } from '@nuxt/content'
+const { t, locale } = useI18n()
 
-const { t } = useI18n()
-
-defineProps<{
-  page: IndexCollectionItem
+const props = defineProps<{
+  categories: any[] | null
 }>()
 
 const activeCategory = ref(0)
@@ -12,23 +10,6 @@ const openIndex = ref(-1)
 
 watch(activeCategory, () => {
   openIndex.value = -1 // reset open state when category changes
-})
-
-const categoryKeys = ['services', 'technical', 'availability']
-const questionMap: Record<string, string[]> = {
-  services: ['q1', 'q2', 'q3'],
-  technical: ['q4', 'q5'],
-  availability: ['q6', 'q7']
-}
-
-const categories = computed(() => {
-  return categoryKeys.map(key => ({
-    title: t(`faq.categories.${key}`),
-    questions: questionMap[key].map(qk => ({
-      label: t(`faq.questions.${qk}`),
-      content: t(`faq.questions.a${qk.slice(1)}`)
-    }))
-  }))
 })
 </script>
 
@@ -52,15 +33,15 @@ const categories = computed(() => {
           </p>
 
           <!-- Minimal Category Tabs -->
-          <div class="flex flex-col gap-4 border-l border-white/10 pl-6">
+          <div v-if="categories && categories.length" class="flex flex-col gap-4 border-l border-white/10 pl-6">
             <button
               v-for="(cat, i) in categories"
-              :key="cat.title"
+              :key="cat.id || i"
               class="text-left font-body uppercase tracking-widest text-xs transition-colors duration-300 py-3 min-h-[44px] flex items-center"
               :class="activeCategory === i ? 'text-primary' : 'text-muted hover:text-primary/70'"
               @click="activeCategory = i"
             >
-              {{ cat.title }}
+              {{ locale === 'tr' && cat.titleTr ? cat.titleTr : cat.titleEn }}
             </button>
           </div>
         </ScrollReveal>
@@ -68,10 +49,10 @@ const categories = computed(() => {
 
       <!-- Accordion Questions -->
       <div class="md:w-2/3">
-        <div class="flex flex-col">
+        <div v-if="categories && categories.length" class="flex flex-col">
           <div
             v-for="(item, index) in categories[activeCategory]?.questions || []"
-            :key="item.label"
+            :key="item.id || index"
             class="group transition-colors duration-300 border-b border-white/10 last:border-transparent"
           >
             <button
@@ -82,7 +63,7 @@ const categories = computed(() => {
                 class="font-display text-lg md:text-xl transition-colors duration-300 pr-8"
                 :class="openIndex === index ? 'text-primary' : 'text-muted group-hover:text-primary'"
               >
-                {{ item.label }}
+                {{ locale === 'tr' && item.questionTr ? item.questionTr : item.questionEn }}
               </h3>
               <span
                 class="transition-transform duration-300 shrink-0 text-muted"
@@ -101,7 +82,7 @@ const categories = computed(() => {
               }"
             >
               <div class="pb-8 text-sm md:text-base font-body text-muted/80 leading-relaxed max-w-2xl">
-                {{ item.content }}
+                {{ locale === 'tr' && item.answerTr ? item.answerTr : item.answerEn }}
               </div>
             </div>
           </div>

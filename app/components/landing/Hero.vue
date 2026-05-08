@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { useMouse, useWindowSize } from '@vueuse/core'
-import type { IndexCollectionItem } from '@nuxt/content'
 
 const { footer, global } = useAppConfig()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
-defineProps<{
-  page: IndexCollectionItem
+const props = defineProps<{
+  hero: any
 }>()
 
 const fullTitle = computed(() => t('hero.title'))

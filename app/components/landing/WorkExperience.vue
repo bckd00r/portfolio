@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import type { IndexCollectionItem } from '@nuxt/content'
 import { ref } from 'vue'
 import { useMouse } from '@vueuse/core'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { x, y } = useMouse()
 
-defineProps<{
-  page: IndexCollectionItem
+const props = defineProps<{
+  items: any[] | null
 }>()
 
 const hoveredIndex = ref<number | null>(null)
@@ -57,8 +56,8 @@ const getHoverImage = (index: number) => `https://picsum.photos/seed/exp${index}
       <!-- Timeline -->
       <div class="md:w-2/3 flex flex-col relative z-10">
         <ScrollReveal
-          v-for="(experience, index) in page.experience.items"
-          :key="index"
+          v-for="(exp, index) in items || []"
+          :key="exp.id || index"
           :delay="index * 100"
         >
           <div 
@@ -69,19 +68,19 @@ const getHoverImage = (index: number) => `https://picsum.photos/seed/exp${index}
             
             <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-4">
               <h3 class="font-display text-2xl md:text-3xl text-primary transition-colors">
-                {{ experience.position }}
+                {{ locale === 'tr' && exp.positionTr ? exp.positionTr : exp.positionEn }}
               </h3>
               <span class="text-xs font-body tracking-widest text-muted uppercase shrink-0">
-                {{ experience.date }}
+                {{ exp.dateLabel }}
               </span>
             </div>
 
             <div class="flex items-center gap-3">
               <div class="flex items-center justify-center size-8 border border-white/10 bg-transparent text-muted group-hover:text-primary transition-colors duration-300">
-                <UIcon :name="experience.company.logo" class="size-4" />
+                <UIcon v-if="exp.companyLogo" :name="exp.companyLogo" class="size-4" />
               </div>
               <p class="text-sm font-body tracking-wide text-muted group-hover:text-primary transition-colors duration-300 uppercase">
-                {{ experience.company.name }}
+                {{ exp.companyName }}
               </p>
             </div>
 
